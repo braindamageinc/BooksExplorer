@@ -32,9 +32,9 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.Adapter listAdapter = new BooksListAdapter();
         binding.list.setAdapter(listAdapter);
 
-        this.listViewModel = ViewModelProviders.of(this).get(BooksListViewModel.class);
+        BookListViewModelFactory listViewModelFactory = new BookListViewModelFactory(new BookListRepository());
+        this.listViewModel = ViewModelProviders.of(this, listViewModelFactory).get(BooksListViewModel.class);
         this.listViewModel.setAdapter((BooksListAdapter) listAdapter);
-        this.listViewModel.setModelRepository(new BookListRepository());
 
         this.listContentPager = new ListContentPager(binding.list, listViewModel);
     }

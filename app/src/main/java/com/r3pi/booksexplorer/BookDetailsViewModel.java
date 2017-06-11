@@ -42,14 +42,16 @@ public class BookDetailsViewModel extends ViewModel {
         }
 
         String coverURL = null;
-        if (model.getVolumeInfo().getImageLinks().getLarge() != null) {
-            coverURL = model.getVolumeInfo().getImageLinks().getLarge();
-        } else if (model.getVolumeInfo().getImageLinks().getMedium() != null) {
-            coverURL = model.getVolumeInfo().getImageLinks().getMedium();
-        } else if (model.getVolumeInfo().getImageLinks().getThumbnail() != null) {
-            coverURL = model.getVolumeInfo().getImageLinks().getThumbnail();
-        } else if (model.getVolumeInfo().getImageLinks().getSmallThumbnail() != null) {
-            coverURL = model.getVolumeInfo().getImageLinks().getSmallThumbnail();
+        if (model.getVolumeInfo().getImageLinks() != null) {
+            if (model.getVolumeInfo().getImageLinks().getLarge() != null) {
+                coverURL = model.getVolumeInfo().getImageLinks().getLarge();
+            } else if (model.getVolumeInfo().getImageLinks().getMedium() != null) {
+                coverURL = model.getVolumeInfo().getImageLinks().getMedium();
+            } else if (model.getVolumeInfo().getImageLinks().getThumbnail() != null) {
+                coverURL = model.getVolumeInfo().getImageLinks().getThumbnail();
+            } else if (model.getVolumeInfo().getImageLinks().getSmallThumbnail() != null) {
+                coverURL = model.getVolumeInfo().getImageLinks().getSmallThumbnail();
+            }
         }
 
         String year = model.getVolumeInfo().getPublishedDate();

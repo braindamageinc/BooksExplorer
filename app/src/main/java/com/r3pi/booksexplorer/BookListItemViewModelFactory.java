@@ -13,10 +13,12 @@ public class BookListItemViewModelFactory {
         }
 
         String coverURL = null;
-        if (item.getVolumeInfo().getImageLinks().getThumbnail() != null) {
-            coverURL = item.getVolumeInfo().getImageLinks().getThumbnail();
-        } else if (item.getVolumeInfo().getImageLinks().getSmallThumbnail() != null) {
-            coverURL = item.getVolumeInfo().getImageLinks().getSmallThumbnail();
+        if (item.getVolumeInfo().getImageLinks() != null) {
+            if (item.getVolumeInfo().getImageLinks().getThumbnail() != null) {
+                coverURL = item.getVolumeInfo().getImageLinks().getThumbnail();
+            } else if (item.getVolumeInfo().getImageLinks().getSmallThumbnail() != null) {
+                coverURL = item.getVolumeInfo().getImageLinks().getSmallThumbnail();
+            }
         }
 
         String year = item.getVolumeInfo().getPublishedDate();
