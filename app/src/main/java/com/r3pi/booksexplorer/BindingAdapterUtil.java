@@ -12,7 +12,9 @@ public class BindingAdapterUtil {
 
     @BindingAdapter("android:src")
     static public void setImageURL(ImageView imageView, String url) {
-        Picasso.with(imageView.getContext()).load(url).into(imageView);
+        Picasso p =Picasso.with(imageView.getContext());
+                p.setIndicatorsEnabled(true);
+                p.load(url).into(imageView);
     }
 
     @BindingAdapter("textHTML")

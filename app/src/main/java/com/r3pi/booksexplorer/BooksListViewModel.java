@@ -32,9 +32,7 @@ public class BooksListViewModel extends ViewModel {
     }
 
     public void loadMore() {
-        if (listContents.size() < modelRepository.getNumTotalBooks()) {
-            getBooks(currentQuery, listContents.size());
-        }
+        getBooks(currentQuery, listContents.size());
     }
 
     private void getBooks(String query, int startIdx) {
@@ -42,6 +40,8 @@ public class BooksListViewModel extends ViewModel {
     }
 
     public void updateListContents(List<BooksListJSONModel.Item> items, int startIdx) {
+        BookListItemViewModelFactory listItemViewModelFactory = new BookListItemViewModelFactory();
+
         List<BookListItemViewModel> newList = new ArrayList<>(listContents);
 
         if (startIdx == 0) {
@@ -49,20 +49,7 @@ public class BooksListViewModel extends ViewModel {
         }
 
         for (BooksListJSONModel.Item item : items) {
-            try {
-                String title = item.getVolumeInfo().getTitle();
-                String authors = "";
-                for (String author : item.getVolumeInfo().getAuthors()) {
-                    authors += author + ", ";
-                }
-                String coverURL = item.getVolumeInfo().getImageLinks().getThumbnail();
-                String year = item.getVolumeInfo().getPublishedDate();
-                String detailsURL = item.getSelfLink();
-                String volumeId = item.getId();
-                newList.add(new BookListItemViewModel(coverURL, title, authors, year, detailsURL, volumeId));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            newList.add(listItemViewModelFactory.getBookListItemViewModel(item));
         }
 
         updateAdapter(newList);

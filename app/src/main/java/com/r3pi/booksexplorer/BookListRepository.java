@@ -3,8 +3,6 @@ package com.r3pi.booksexplorer;
 
 import android.util.Log;
 
-import com.r3pi.booksexplorer.databinding.BookDetailsActivityBinding;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -13,9 +11,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class BookListRepository implements IModelRepository {
 
+    private static final int INVALID_IDX = -1;
+
     private final BooksAPIService booksAPIService;
 
-    private int numTotalBooks = 0;
+    private int numTotalBooks;
 
     private boolean requestCompleted;
 
@@ -32,45 +32,12 @@ public class BookListRepository implements IModelRepository {
         this.booksAPIService = retrofit.create(BooksAPIService.class);
 
         requestCompleted = true;
-    }
-
-    public void testBookDetails(final String volumeId, final BookDetailsActivityBinding binding) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("https://www.googleapis.com/")
-                .build();
-
-        BooksAPIService bookListService = retrofit.create(BooksAPIService.class);
-
-        bookListService.getBookDetails(volumeId).enqueue(new Callback<BookDetailsJSONModel>() {
-            @Override
-            public void onResponse(Call<BookDetailsJSONModel> call, Response<BookDetailsJSONModel> response) {
-                try {
-                    String title = response.body().getVolumeInfo().getTitle();
-                    String authors = "";
-                    for (String author : response.body().getVolumeInfo().getAuthors()) {
-                        authors += author + ", ";
-                    }
-                    String coverURL = response.body().getVolumeInfo().getImageLinks().getLarge();
-                    String year = response.body().getVolumeInfo().getPublishedDate();
-                    String description = response.body().getVolumeInfo().getDescription();
-                    binding.setBookDetails(new BookDetailsViewModel(coverURL, title, authors, year, description));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BookDetailsJSONModel> call, Throwable t) {
-                Log.e("TEST", t.toString());
-            }
-        });
-
+        numTotalBooks = INVALID_IDX;
     }
 
     @Override
     public void getBooksList(String query, final int startIdx, final BooksListViewModel listViewModel) {
-        if (requestCompleted) {
+        if (canLoadMore(startIdx)) {
             Log.i("TEST", "START REQ " + query + " IDX: " + startIdx);
             requestCompleted = false;
             booksAPIService.getBooksList(query, startIdx).enqueue(new Callback<BooksListJSONModel>() {
@@ -92,9 +59,33 @@ public class BookListRepository implements IModelRepository {
         }
     }
 
-    @Override
-    public void getBookDetails(String volumeId) {
+    private boolean canLoadMore(int startIdx) {
+        boolean canLoadMore = requestCompleted;
 
+        if (numTotalBooks != INVALID_IDX) {
+            canLoadMore = canLoadMore && (startIdx < numTotalBooks);
+        }
+
+        return canLoadMore;
+    }
+
+    @Override
+    public void getBookDetails(String volumeId, final IBookDetailsCallback callback) {
+        booksAPIService.getBookDetails(volumeId).enqueue(new Callback<BookDetailsJSONModel>() {
+            @Override
+            public void onResponse(Call<BookDetailsJSONModel> call, Response<BookDetailsJSONModel> response) {
+                if (callback != null) {
+                    callback.onResult(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BookDetailsJSONModel> call, Throwable t) {
+                if (callback != null) {
+                    callback.onFail(t.toString());
+                }
+            }
+        });
     }
 
     public int getNumTotalBooks() {

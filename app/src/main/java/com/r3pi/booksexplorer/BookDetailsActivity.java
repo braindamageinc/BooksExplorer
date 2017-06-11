@@ -1,5 +1,6 @@
 package com.r3pi.booksexplorer;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,8 +11,7 @@ public class BookDetailsActivity extends AppCompatActivity {
 
     public static String BOOK_VOLUME_ID_EXTRA = "BOOK_VOLUME_ID_EXTRA";
 
-
-    private BookListRepository bookRepo;
+    private BookDetailsViewModel bookDetailsViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +23,10 @@ public class BookDetailsActivity extends AppCompatActivity {
 
         String volumeId = getIntent().getStringExtra(BOOK_VOLUME_ID_EXTRA);
 
-        this.bookRepo = new BookListRepository();
+        BookDetailsViewModelFactory viewModelFactory = new BookDetailsViewModelFactory(volumeId, new BookListRepository());
+        bookDetailsViewModel = ViewModelProviders.of(this, viewModelFactory).get(BookDetailsViewModel.class);
 
-        bookRepo.testBookDetails(volumeId, binding);
+        binding.setBookDetails(bookDetailsViewModel);
     }
 
 
