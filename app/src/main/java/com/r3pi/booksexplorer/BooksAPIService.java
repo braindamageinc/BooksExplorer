@@ -9,7 +9,7 @@ import retrofit2.http.Query;
 public interface BooksAPIService {
 
     @GET("books/v1/volumes?")
-    Call<BooksListJSONModel> getBooksList(@Query("q") String searchBook);
+    Call<BooksListJSONModel> getBooksList(@Query("q") String searchBook, @Query("startIndex") int startIdx);
 
     @GET("books/v1/volumes?")
     Call<ResponseBody> getBooksListRaw(@Query("q") String searchBook);

@@ -4,7 +4,6 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
@@ -16,12 +15,6 @@ public class BooksListAdapter extends RecyclerView.Adapter<BooksListAdapter.View
 
     public BooksListAdapter() {
          listContent = new ArrayList<>();
-    }
-
-    public void setContent(List<BookListItemViewModel> content) {
-        listContent.clear();
-        listContent.addAll(content);
-        notifyDataSetChanged();
     }
 
     @Override
@@ -41,6 +34,14 @@ public class BooksListAdapter extends RecyclerView.Adapter<BooksListAdapter.View
     @Override
     public int getItemCount() {
         return listContent.size();
+    }
+
+    public List<BookListItemViewModel> getListContents() {
+        return listContent;
+    }
+
+    public void setListContents(List<BookListItemViewModel> listContent) {
+        this.listContent = listContent;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

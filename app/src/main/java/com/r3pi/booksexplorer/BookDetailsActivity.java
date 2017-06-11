@@ -19,7 +19,7 @@ public class BookDetailsActivity extends AppCompatActivity {
 
         BookDetailsActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.book_details_activity);
 
-        //setSupportActionBar(binding.toolbar);
+        setSupportActionBar(binding.toolbar);
 
         String volumeId = getIntent().getStringExtra(BOOK_VOLUME_ID_EXTRA);
 
@@ -27,5 +27,6 @@ public class BookDetailsActivity extends AppCompatActivity {
 
         bookRepo.testBookDetails(volumeId, binding);
     }
+
 
 }

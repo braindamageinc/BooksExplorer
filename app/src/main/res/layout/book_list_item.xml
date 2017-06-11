@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@{book.coverURL}"
-        tools:src="@drawable/test_cover"/>
+        tools:src="@android:drawable/alert_light_frame"/>
 
     <LinearLayout
         android:orientation="vertical"

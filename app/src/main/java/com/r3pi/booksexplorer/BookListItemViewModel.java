@@ -23,9 +23,6 @@ public class BookListItemViewModel {
     }
 
     public void onClick(View v) {
-        //TODO: on click => book details activity
-        //Log.i("TEST", "Item clicked: " + title.get());
-
         Intent detailsActivityIntent = new Intent(v.getContext(), BookDetailsActivity.class);
         detailsActivityIntent.putExtra(BookDetailsActivity.BOOK_VOLUME_ID_EXTRA, volumeId.get());
 

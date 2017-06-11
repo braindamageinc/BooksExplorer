@@ -1,22 +1,52 @@
 package com.r3pi.booksexplorer;
 
+import android.arch.lifecycle.ViewModel;
+import android.support.v7.util.DiffUtil;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class BooksListViewModel {
+public class BooksListViewModel extends ViewModel {
 
-    private List<BookListItemViewModel> listContents;
+    private List<BookListItemViewModel> listContents = new ArrayList<>();
 
     private BooksListAdapter listAdapter;
 
-    public BooksListViewModel(BooksListAdapter listAdapter) {
+    private String currentQuery;
+    private int currentStartIdx;
+    private IModelRepository modelRepository;
+
+    public void setAdapter(BooksListAdapter listAdapter) {
         this.listAdapter = listAdapter;
-        this.listContents = new ArrayList<>();
+
+        updateAdapter(listContents);
     }
 
-    public void updateListContents(List<BooksListJSONModel.Item> items) {
-        //TODO: use diff utils to merge contents
-        listContents.clear();
+    public void searchBooks(String query) {
+        if (!query.equals(currentQuery)) {
+            currentQuery = query;
+            currentStartIdx = 0;
+            getBooks(currentQuery, currentStartIdx);
+        }
+    }
+
+    public void loadMore() {
+        if (listContents.size() < modelRepository.getNumTotalBooks()) {
+            getBooks(currentQuery, listContents.size());
+        }
+    }
+
+    private void getBooks(String query, int startIdx) {
+        modelRepository.getBooksList(query, startIdx, this);
+    }
+
+    public void updateListContents(List<BooksListJSONModel.Item> items, int startIdx) {
+        List<BookListItemViewModel> newList = new ArrayList<>(listContents);
+
+        if (startIdx == 0) {
+            newList.clear();
+        }
 
         for (BooksListJSONModel.Item item : items) {
             try {
@@ -25,16 +55,68 @@ public class BooksListViewModel {
                 for (String author : item.getVolumeInfo().getAuthors()) {
                     authors += author + ", ";
                 }
-                String coverURL = item.getVolumeInfo().getImageLinks().getSmallThumbnail();
+                String coverURL = item.getVolumeInfo().getImageLinks().getThumbnail();
                 String year = item.getVolumeInfo().getPublishedDate();
                 String detailsURL = item.getSelfLink();
                 String volumeId = item.getId();
-                listContents.add(new BookListItemViewModel(coverURL, title, authors, year, detailsURL, volumeId));
+                newList.add(new BookListItemViewModel(coverURL, title, authors, year, detailsURL, volumeId));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
-        listAdapter.setContent(listContents);
+        updateAdapter(newList);
+
+        listContents = newList;
     }
+
+    private void updateAdapter(List<BookListItemViewModel> newList) {
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new BooksListDiffCallback(newList, listAdapter.getListContents()));
+        listAdapter.setListContents(newList);
+        diffResult.dispatchUpdatesTo(listAdapter);
+    }
+
+    public void setModelRepository(IModelRepository modelRepository) {
+        this.modelRepository = modelRepository;
+    }
+
+    public String getCurrentQuery() {
+        return currentQuery;
+    }
+
+
+    private class BooksListDiffCallback extends DiffUtil.Callback {
+
+        List<BookListItemViewModel> newList;
+        List<BookListItemViewModel> oldList;
+
+        public BooksListDiffCallback(List<BookListItemViewModel> newList, List<BookListItemViewModel> oldList) {
+            this.oldList = oldList;
+            this.newList = newList;
+        }
+
+        @Override
+        public int getOldListSize() {
+            return oldList.size();
+        }
+
+        @Override
+        public int getNewListSize() {
+            return newList.size();
+        }
+
+        @Override
+        public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+            BookListItemViewModel oldItem = oldList.get(oldItemPosition);
+            BookListItemViewModel newItem = newList.get(newItemPosition);
+
+            return oldItem.volumeId.equals(newItem.volumeId);
+        }
+
+        @Override
+        public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+            return areItemsTheSame(oldItemPosition, newItemPosition);
+        }
+    }
+
 }
