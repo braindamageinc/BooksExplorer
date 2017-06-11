@@ -24,8 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
+        setSupportActionBar(binding.toolbar);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         binding.list.setLayoutManager(layoutManager);

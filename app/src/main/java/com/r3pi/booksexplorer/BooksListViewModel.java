@@ -28,7 +28,8 @@ public class BooksListViewModel {
                 String coverURL = item.getVolumeInfo().getImageLinks().getSmallThumbnail();
                 String year = item.getVolumeInfo().getPublishedDate();
                 String detailsURL = item.getSelfLink();
-                listContents.add(new BookListItemViewModel(coverURL, title, authors, year, detailsURL));
+                String volumeId = item.getId();
+                listContents.add(new BookListItemViewModel(coverURL, title, authors, year, detailsURL, volumeId));
             } catch (Exception e) {
                 e.printStackTrace();
             }
