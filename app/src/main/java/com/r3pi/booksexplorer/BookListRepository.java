@@ -14,17 +14,11 @@ public class BookListRepository {
 
 
     /*
-    GET https://www.googleapis.com/books/v1/volumes?q=war%20peace
-
-    &key=AIzaSyAr-Nsaoiw6naYxYjfQcbYnO3ztJ68cSPY
-
-    GET https://www.googleapis.com/books/v1/volumes/I7eFIs8yvlAC
-
     &key=AIzaSyAr-Nsaoiw6naYxYjfQcbYnO3ztJ68cSPY
      */
 
 
-    public void testListBooks(final TextView textView) {
+    public void testListBooks(String query, final BooksListViewModel listViewModel) {
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl("https://www.googleapis.com/")
@@ -32,14 +26,12 @@ public class BookListRepository {
 
         BooksAPIService bookListService = retrofit.create(BooksAPIService.class);
 
-        bookListService.getBooksList("harry potter").enqueue(new Callback<BooksListJSONModel>() {
+        bookListService.getBooksList(query).enqueue(new Callback<BooksListJSONModel>() {
             @Override
             public void onResponse(Call<BooksListJSONModel> call, Response<BooksListJSONModel> response) {
                 Log.i("TEST", response.toString());
 
-                for (BooksListJSONModel.Item books : response.body().getItems()) {
-                    Log.i("TEST", "Book: " + books.getSelfLink());
-                }
+                listViewModel.updateListContents(response.body().getItems());
             }
 
             @Override
@@ -48,20 +40,20 @@ public class BookListRepository {
             }
         });
 
-        bookListService.getBookDetails("I7eFIs8yvlAC").enqueue(new Callback<BookDetailsJSONModel>() {
+        /*bookListService.getBookDetails("I7eFIs8yvlAC").enqueue(new Callback<BookDetailsJSONModel>() {
             @Override
             public void onResponse(Call<BookDetailsJSONModel> call, Response<BookDetailsJSONModel> response) {
                 String bookDescr = response.body().getVolumeInfo().getDescription();
                 Log.i("TEST", "" + bookDescr);
 
-                textView.setText(bookDescr);
+                listViewModel.setText(bookDescr);
             }
 
             @Override
             public void onFailure(Call<BookDetailsJSONModel> call, Throwable t) {
                 Log.e("TEST", t.toString());
             }
-        });
+        });*/
 
     }
 
