@@ -1,8 +1,6 @@
 package com.r3pi.booksexplorer;
 
 
-import android.util.Log;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -12,6 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class BookListRepository implements IModelRepository {
 
     private static final int INVALID_IDX = -1;
+    private static final String BOOKS_API_BASE_URL = "https://www.googleapis.com/";
 
     private final BooksAPIService booksAPIService;
 
@@ -19,14 +18,12 @@ public class BookListRepository implements IModelRepository {
 
     private boolean requestCompleted;
 
-    /*
-    &key=AIzaSyAr-Nsaoiw6naYxYjfQcbYnO3ztJ68cSPY
-     */
+    private static final String BOOKS_API_KEY = "AIzaSyAr-Nsaoiw6naYxYjfQcbYnO3ztJ68cSPY";
 
     public BookListRepository() {
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("https://www.googleapis.com/")
+                .baseUrl(BOOKS_API_BASE_URL)
                 .build();
 
         this.booksAPIService = retrofit.create(BooksAPIService.class);
@@ -40,9 +37,8 @@ public class BookListRepository implements IModelRepository {
         boolean requestStarted = false;
 
         if (canLoadMore(startIdx)) {
-            Log.i("TEST", "START REQ " + query + " IDX: " + startIdx);
             requestCompleted = false;
-            booksAPIService.getBooksList(query, startIdx).enqueue(new Callback<BooksListJSONModel>() {
+            booksAPIService.getBooksList(query, startIdx, BOOKS_API_KEY).enqueue(new Callback<BooksListJSONModel>() {
                 @Override
                 public void onResponse(Call<BooksListJSONModel> call, Response<BooksListJSONModel> response) {
                     numTotalBooks = response.body().getTotalItems();
@@ -84,7 +80,7 @@ public class BookListRepository implements IModelRepository {
     public boolean getBookDetails(String volumeId, final IBookDetailsCallback callback) {
         boolean requestStarted = true;
 
-        booksAPIService.getBookDetails(volumeId).enqueue(new Callback<BookDetailsJSONModel>() {
+        booksAPIService.getBookDetails(volumeId, BOOKS_API_KEY).enqueue(new Callback<BookDetailsJSONModel>() {
             @Override
             public void onResponse(Call<BookDetailsJSONModel> call, Response<BookDetailsJSONModel> response) {
                 if (callback != null) {
