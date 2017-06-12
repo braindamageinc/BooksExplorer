@@ -1,10 +1,13 @@
-package com.r3pi.booksexplorer;
+package com.r3pi.booksexplorer.ui.BooksList;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
+import com.r3pi.booksexplorer.BR;
+import com.r3pi.booksexplorer.R;
 
 import java.util.ArrayList;
 import java.util.List;

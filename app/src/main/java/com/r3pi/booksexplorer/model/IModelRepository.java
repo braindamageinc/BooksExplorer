@@ -1,4 +1,4 @@
-package com.r3pi.booksexplorer;
+package com.r3pi.booksexplorer.model;
 
 public interface IModelRepository {
 

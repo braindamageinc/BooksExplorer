@@ -1,4 +1,4 @@
-package com.r3pi.booksexplorer;
+package com.r3pi.booksexplorer.ui.BooksList;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;

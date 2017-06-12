@@ -1,4 +1,4 @@
-package com.r3pi.booksexplorer;
+package com.r3pi.booksexplorer.util;
 
 import android.databinding.BindingAdapter;
 import android.os.Build;
@@ -13,9 +13,7 @@ public class BindingAdapterUtil {
 
     @BindingAdapter("android:src")
     static public void setImageURL(ImageView imageView, String url) {
-        Picasso p =Picasso.with(imageView.getContext());
-                p.setIndicatorsEnabled(true);
-                p.load(url).into(imageView);
+        Picasso.with(imageView.getContext()).load(url).into(imageView);
     }
 
     @BindingAdapter("android:visibility")

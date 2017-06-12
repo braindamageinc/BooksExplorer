@@ -8,7 +8,7 @@
     <data>
         <variable
             name="bookDetails"
-            type="com.r3pi.booksexplorer.BookDetailsViewModel"/>
+            type="com.r3pi.booksexplorer.ui.BookDetails.BookDetailsViewModel"/>
     </data>
 
 <android.support.design.widget.CoordinatorLayout

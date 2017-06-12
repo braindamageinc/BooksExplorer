@@ -8,7 +8,7 @@
     <data>
         <variable
             name="book"
-            type="com.r3pi.booksexplorer.BookListItemViewModel"/>
+            type="com.r3pi.booksexplorer.ui.BooksList.BookListItemViewModel"/>
     </data>
 
 

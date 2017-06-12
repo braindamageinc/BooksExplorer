@@ -1,4 +1,6 @@
-package com.r3pi.booksexplorer;
+package com.r3pi.booksexplorer.ui.BooksList;
+
+import com.r3pi.booksexplorer.model.BooksListJSONModel;
 
 public class BookListItemViewModelFactory {
 

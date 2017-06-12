@@ -1,4 +1,4 @@
-package com.r3pi.booksexplorer;
+package com.r3pi.booksexplorer.ui.BookDetails;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -6,6 +6,8 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.r3pi.booksexplorer.model.BookListRepository;
+import com.r3pi.booksexplorer.R;
 import com.r3pi.booksexplorer.databinding.BookDetailsActivityBinding;
 
 public class BookDetailsActivity extends AppCompatActivity {

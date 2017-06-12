@@ -1,4 +1,4 @@
-package com.r3pi.booksexplorer;
+package com.r3pi.booksexplorer.ui.BooksList;
 
 import android.app.Activity;
 import android.content.Context;
@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.databinding.ObservableField;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.view.View;
+
+import com.r3pi.booksexplorer.ui.BookDetails.BookDetailsActivity;
+import com.r3pi.booksexplorer.R;
 
 public class BookListItemViewModel {
 

@@ -1,7 +1,11 @@
-package com.r3pi.booksexplorer;
+package com.r3pi.booksexplorer.ui.BookDetails;
 
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableField;
+
+import com.r3pi.booksexplorer.model.BookDetailsJSONModel;
+import com.r3pi.booksexplorer.model.IBookDetailsCallback;
+import com.r3pi.booksexplorer.model.IModelRepository;
 
 public class BookDetailsViewModel extends ViewModel {
 

@@ -1,4 +1,4 @@
-package com.r3pi.booksexplorer;
+package com.r3pi.booksexplorer.ui.BooksList;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
@@ -7,13 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.r3pi.booksexplorer.databinding.ActivityMainBinding;
+import com.r3pi.booksexplorer.R;
+import com.r3pi.booksexplorer.databinding.BooksListActivityBinding;
+import com.r3pi.booksexplorer.model.BookListRepository;
 
-public class MainActivity extends AppCompatActivity {
+public class BooksListActivity extends AppCompatActivity {
 
     private BooksListViewModel listViewModel;
     private ListContentPager listContentPager;
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        BooksListActivityBinding binding = DataBindingUtil.setContentView(this, R.layout.books_list_activity);
 
         setSupportActionBar(binding.toolbar);
 

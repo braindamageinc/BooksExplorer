@@ -1,6 +1,8 @@
-package com.r3pi.booksexplorer;
+package com.r3pi.booksexplorer.ui.BooksList;
 
 import android.arch.lifecycle.ViewModelProvider;
+
+import com.r3pi.booksexplorer.model.IModelRepository;
 
 public class BookListViewModelFactory implements ViewModelProvider.Factory {
 

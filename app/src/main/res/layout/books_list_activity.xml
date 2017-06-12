@@ -7,14 +7,14 @@
     <data>
         <variable
             name="booksList"
-            type="com.r3pi.booksexplorer.BooksListViewModel"/>
+            type="com.r3pi.booksexplorer.ui.BooksList.BooksListViewModel"/>
     </data>
 
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.r3pi.booksexplorer.MainActivity">
+    tools:context=".ui.BooksList.BooksListActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"

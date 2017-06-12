@@ -1,8 +1,12 @@
-package com.r3pi.booksexplorer;
+package com.r3pi.booksexplorer.ui.BooksList;
 
 import android.arch.lifecycle.ViewModel;
 import android.databinding.ObservableBoolean;
 import android.support.v7.util.DiffUtil;
+
+import com.r3pi.booksexplorer.model.BooksListJSONModel;
+import com.r3pi.booksexplorer.model.IBooksListCallback;
+import com.r3pi.booksexplorer.model.IModelRepository;
 
 import java.util.ArrayList;
 import java.util.List;

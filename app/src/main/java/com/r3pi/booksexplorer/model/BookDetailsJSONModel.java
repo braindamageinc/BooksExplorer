@@ -1,22 +1,36 @@
-package com.r3pi.booksexplorer;
-
+package com.r3pi.booksexplorer.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-class BooksListJSONModel {
+public class BookDetailsJSONModel {
 
     @SerializedName("kind")
     @Expose
     private String kind;
-    @SerializedName("totalItems")
+    @SerializedName("id")
     @Expose
-    private Integer totalItems;
-    @SerializedName("items")
+    private String id;
+    @SerializedName("etag")
     @Expose
-    private List<Item> items = null;
+    private String etag;
+    @SerializedName("selfLink")
+    @Expose
+    private String selfLink;
+    @SerializedName("volumeInfo")
+    @Expose
+    private VolumeInfo volumeInfo;
+    @SerializedName("layerInfo")
+    @Expose
+    private LayerInfo layerInfo;
+    @SerializedName("saleInfo")
+    @Expose
+    private SaleInfo saleInfo;
+    @SerializedName("accessInfo")
+    @Expose
+    private AccessInfo accessInfo;
 
     public String getKind() {
         return kind;
@@ -26,116 +40,62 @@ class BooksListJSONModel {
         this.kind = kind;
     }
 
-    public Integer getTotalItems() {
-        return totalItems;
+    public String getId() {
+        return id;
     }
 
-    public void setTotalItems(Integer totalItems) {
-        this.totalItems = totalItems;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public List<Item> getItems() {
-        return items;
+    public String getEtag() {
+        return etag;
     }
 
-    public void setItems(List<Item> items) {
-        this.items = items;
+    public void setEtag(String etag) {
+        this.etag = etag;
     }
 
-
-
-    public class Item {
-
-        @SerializedName("kind")
-        @Expose
-        private String kind;
-        @SerializedName("id")
-        @Expose
-        private String id;
-        @SerializedName("etag")
-        @Expose
-        private String etag;
-        @SerializedName("selfLink")
-        @Expose
-        private String selfLink;
-        @SerializedName("volumeInfo")
-        @Expose
-        private VolumeInfo volumeInfo;
-        @SerializedName("saleInfo")
-        @Expose
-        private SaleInfo saleInfo;
-        /*@SerializedName("accessInfo")
-        @Expose
-        private AccessInfo accessInfo;*/
-        @SerializedName("searchInfo")
-        @Expose
-        private SearchInfo searchInfo;
-
-        public String getKind() {
-            return kind;
-        }
-
-        public void setKind(String kind) {
-            this.kind = kind;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
-
-        public String getEtag() {
-            return etag;
-        }
-
-        public void setEtag(String etag) {
-            this.etag = etag;
-        }
-
-        public String getSelfLink() {
-            return selfLink;
-        }
-
-        public void setSelfLink(String selfLink) {
-            this.selfLink = selfLink;
-        }
-
-        public VolumeInfo getVolumeInfo() {
-            return volumeInfo;
-        }
-
-        public void setVolumeInfo(VolumeInfo volumeInfo) {
-            this.volumeInfo = volumeInfo;
-        }
-
-        public SaleInfo getSaleInfo() {
-            return saleInfo;
-        }
-
-        public void setSaleInfo(SaleInfo saleInfo) {
-            this.saleInfo = saleInfo;
-        }
-
-        /*public AccessInfo getAccessInfo() {
-            return accessInfo;
-        }
-
-        public void setAccessInfo(AccessInfo accessInfo) {
-            this.accessInfo = accessInfo;
-        }*/
-
-        public SearchInfo getSearchInfo() {
-            return searchInfo;
-        }
-
-        public void setSearchInfo(SearchInfo searchInfo) {
-            this.searchInfo = searchInfo;
-        }
-
+    public String getSelfLink() {
+        return selfLink;
     }
+
+    public void setSelfLink(String selfLink) {
+        this.selfLink = selfLink;
+    }
+
+    public VolumeInfo getVolumeInfo() {
+        return volumeInfo;
+    }
+
+    public void setVolumeInfo(VolumeInfo volumeInfo) {
+        this.volumeInfo = volumeInfo;
+    }
+
+    public LayerInfo getLayerInfo() {
+        return layerInfo;
+    }
+
+    public void setLayerInfo(LayerInfo layerInfo) {
+        this.layerInfo = layerInfo;
+    }
+
+    public SaleInfo getSaleInfo() {
+        return saleInfo;
+    }
+
+    public void setSaleInfo(SaleInfo saleInfo) {
+        this.saleInfo = saleInfo;
+    }
+
+    public AccessInfo getAccessInfo() {
+        return accessInfo;
+    }
+
+    public void setAccessInfo(AccessInfo accessInfo) {
+        this.accessInfo = accessInfo;
+    }
+
 
     public class VolumeInfo {
 
@@ -145,21 +105,36 @@ class BooksListJSONModel {
         @SerializedName("authors")
         @Expose
         private List<String> authors = null;
+        @SerializedName("publisher")
+        @Expose
+        private String publisher;
         @SerializedName("publishedDate")
         @Expose
         private String publishedDate;
+        @SerializedName("description")
+        @Expose
+        private String description;
         @SerializedName("industryIdentifiers")
         @Expose
         private List<IndustryIdentifier> industryIdentifiers = null;
-        @SerializedName("readingModes")
-        @Expose
-        private ReadingModes readingModes;
         @SerializedName("pageCount")
         @Expose
         private Integer pageCount;
+        @SerializedName("printedPageCount")
+        @Expose
+        private Integer printedPageCount;
         @SerializedName("printType")
         @Expose
         private String printType;
+        @SerializedName("categories")
+        @Expose
+        private List<String> categories = null;
+        @SerializedName("averageRating")
+        @Expose
+        private Double averageRating;
+        @SerializedName("ratingsCount")
+        @Expose
+        private Integer ratingsCount;
         @SerializedName("maturityRating")
         @Expose
         private String maturityRating;
@@ -169,6 +144,9 @@ class BooksListJSONModel {
         @SerializedName("contentVersion")
         @Expose
         private String contentVersion;
+        @SerializedName("panelizationSummary")
+        @Expose
+        private PanelizationSummary panelizationSummary;
         @SerializedName("imageLinks")
         @Expose
         private ImageLinks imageLinks;
@@ -184,27 +162,6 @@ class BooksListJSONModel {
         @SerializedName("canonicalVolumeLink")
         @Expose
         private String canonicalVolumeLink;
-        @SerializedName("subtitle")
-        @Expose
-        private String subtitle;
-        @SerializedName("publisher")
-        @Expose
-        private String publisher;
-        @SerializedName("description")
-        @Expose
-        private String description;
-        @SerializedName("categories")
-        @Expose
-        private List<String> categories = null;
-        @SerializedName("averageRating")
-        @Expose
-        private Double averageRating;
-        @SerializedName("ratingsCount")
-        @Expose
-        private Integer ratingsCount;
-        @SerializedName("panelizationSummary")
-        @Expose
-        private PanelizationSummary panelizationSummary;
 
         public String getTitle() {
             return title;
@@ -222,12 +179,28 @@ class BooksListJSONModel {
             this.authors = authors;
         }
 
+        public String getPublisher() {
+            return publisher;
+        }
+
+        public void setPublisher(String publisher) {
+            this.publisher = publisher;
+        }
+
         public String getPublishedDate() {
             return publishedDate;
         }
 
         public void setPublishedDate(String publishedDate) {
             this.publishedDate = publishedDate;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
         }
 
         public List<IndustryIdentifier> getIndustryIdentifiers() {
@@ -238,13 +211,6 @@ class BooksListJSONModel {
             this.industryIdentifiers = industryIdentifiers;
         }
 
-        public ReadingModes getReadingModes() {
-            return readingModes;
-        }
-
-        public void setReadingModes(ReadingModes readingModes) {
-            this.readingModes = readingModes;
-        }
 
         public Integer getPageCount() {
             return pageCount;
@@ -254,12 +220,44 @@ class BooksListJSONModel {
             this.pageCount = pageCount;
         }
 
+        public Integer getPrintedPageCount() {
+            return printedPageCount;
+        }
+
+        public void setPrintedPageCount(Integer printedPageCount) {
+            this.printedPageCount = printedPageCount;
+        }
+
         public String getPrintType() {
             return printType;
         }
 
         public void setPrintType(String printType) {
             this.printType = printType;
+        }
+
+        public List<String> getCategories() {
+            return categories;
+        }
+
+        public void setCategories(List<String> categories) {
+            this.categories = categories;
+        }
+
+        public Double getAverageRating() {
+            return averageRating;
+        }
+
+        public void setAverageRating(Double averageRating) {
+            this.averageRating = averageRating;
+        }
+
+        public Integer getRatingsCount() {
+            return ratingsCount;
+        }
+
+        public void setRatingsCount(Integer ratingsCount) {
+            this.ratingsCount = ratingsCount;
         }
 
         public String getMaturityRating() {
@@ -284,6 +282,14 @@ class BooksListJSONModel {
 
         public void setContentVersion(String contentVersion) {
             this.contentVersion = contentVersion;
+        }
+
+        public PanelizationSummary getPanelizationSummary() {
+            return panelizationSummary;
+        }
+
+        public void setPanelizationSummary(PanelizationSummary panelizationSummary) {
+            this.panelizationSummary = panelizationSummary;
         }
 
         public ImageLinks getImageLinks() {
@@ -324,78 +330,6 @@ class BooksListJSONModel {
 
         public void setCanonicalVolumeLink(String canonicalVolumeLink) {
             this.canonicalVolumeLink = canonicalVolumeLink;
-        }
-
-        public String getSubtitle() {
-            return subtitle;
-        }
-
-        public void setSubtitle(String subtitle) {
-            this.subtitle = subtitle;
-        }
-
-        public String getPublisher() {
-            return publisher;
-        }
-
-        public void setPublisher(String publisher) {
-            this.publisher = publisher;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        public void setDescription(String description) {
-            this.description = description;
-        }
-
-        public List<String> getCategories() {
-            return categories;
-        }
-
-        public void setCategories(List<String> categories) {
-            this.categories = categories;
-        }
-
-        public Double getAverageRating() {
-            return averageRating;
-        }
-
-        public void setAverageRating(Double averageRating) {
-            this.averageRating = averageRating;
-        }
-
-        public Integer getRatingsCount() {
-            return ratingsCount;
-        }
-
-        public void setRatingsCount(Integer ratingsCount) {
-            this.ratingsCount = ratingsCount;
-        }
-
-        public PanelizationSummary getPanelizationSummary() {
-            return panelizationSummary;
-        }
-
-        public void setPanelizationSummary(PanelizationSummary panelizationSummary) {
-            this.panelizationSummary = panelizationSummary;
-        }
-
-    }
-
-    public class SearchInfo {
-
-        @SerializedName("textSnippet")
-        @Expose
-        private String textSnippet;
-
-        public String getTextSnippet() {
-            return textSnippet;
-        }
-
-        public void setTextSnippet(String textSnippet) {
-            this.textSnippet = textSnippet;
         }
 
     }
@@ -509,7 +443,6 @@ class BooksListJSONModel {
 
     }
 
-
     public class RetailPrice {
 
         @SerializedName("amount")
@@ -533,33 +466,6 @@ class BooksListJSONModel {
 
         public void setCurrencyCode(String currencyCode) {
             this.currencyCode = currencyCode;
-        }
-
-    }
-
-    public class ReadingModes {
-
-        @SerializedName("text")
-        @Expose
-        private Boolean text;
-        @SerializedName("image")
-        @Expose
-        private Boolean image;
-
-        public Boolean getText() {
-            return text;
-        }
-
-        public void setText(Boolean text) {
-            this.text = text;
-        }
-
-        public Boolean getImage() {
-            return image;
-        }
-
-        public void setImage(Boolean image) {
-            this.image = image;
         }
 
     }
@@ -721,7 +627,48 @@ class BooksListJSONModel {
 
     }
 
-    public class IndustryIdentifier {
+    public class LayerInfo {
+
+        @SerializedName("layers")
+        @Expose
+        private List<Layer> layers = null;
+
+        public List<Layer> getLayers() {
+            return layers;
+        }
+
+        public void setLayers(List<Layer> layers) {
+            this.layers = layers;
+        }
+
+    }
+
+    public class Layer {
+
+        @SerializedName("layerId")
+        @Expose
+        private String layerId;
+        @SerializedName("volumeAnnotationsVersion")
+        @Expose
+        private String volumeAnnotationsVersion;
+
+        public String getLayerId() {
+            return layerId;
+        }
+
+        public void setLayerId(String layerId) {
+            this.layerId = layerId;
+        }
+
+        public String getVolumeAnnotationsVersion() {
+            return volumeAnnotationsVersion;
+        }
+
+        public void setVolumeAnnotationsVersion(String volumeAnnotationsVersion) {
+            this.volumeAnnotationsVersion = volumeAnnotationsVersion;
+        }
+
+    }public class IndustryIdentifier {
 
         @SerializedName("type")
         @Expose
@@ -756,6 +703,18 @@ class BooksListJSONModel {
         @SerializedName("thumbnail")
         @Expose
         private String thumbnail;
+        @SerializedName("small")
+        @Expose
+        private String small;
+        @SerializedName("medium")
+        @Expose
+        private String medium;
+        @SerializedName("large")
+        @Expose
+        private String large;
+        @SerializedName("extraLarge")
+        @Expose
+        private String extraLarge;
 
         public String getSmallThumbnail() {
             return smallThumbnail;
@@ -771,6 +730,38 @@ class BooksListJSONModel {
 
         public void setThumbnail(String thumbnail) {
             this.thumbnail = thumbnail;
+        }
+
+        public String getSmall() {
+            return small;
+        }
+
+        public void setSmall(String small) {
+            this.small = small;
+        }
+
+        public String getMedium() {
+            return medium;
+        }
+
+        public void setMedium(String medium) {
+            this.medium = medium;
+        }
+
+        public String getLarge() {
+            return large;
+        }
+
+        public void setLarge(String large) {
+            this.large = large;
+        }
+
+        public String getExtraLarge() {
+            return extraLarge;
+        }
+
+        public void setExtraLarge(String extraLarge) {
+            this.extraLarge = extraLarge;
         }
 
     }
@@ -802,7 +793,7 @@ class BooksListJSONModel {
 
     }
 
-    /*public class AccessInfo {
+    public class AccessInfo {
 
         @SerializedName("country")
         @Expose
@@ -915,7 +906,7 @@ class BooksListJSONModel {
             this.quoteSharingAllowed = quoteSharingAllowed;
         }
 
-    }*/
+    }
 
 
 }
