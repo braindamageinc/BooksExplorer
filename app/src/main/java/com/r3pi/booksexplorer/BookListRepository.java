@@ -36,7 +36,9 @@ public class BookListRepository implements IModelRepository {
     }
 
     @Override
-    public void getBooksList(String query, final int startIdx, final BooksListViewModel listViewModel) {
+    public boolean getBooksList(String query, final int startIdx, final IBooksListCallback callback) {
+        boolean requestStarted = false;
+
         if (canLoadMore(startIdx)) {
             Log.i("TEST", "START REQ " + query + " IDX: " + startIdx);
             requestCompleted = false;
@@ -45,18 +47,27 @@ public class BookListRepository implements IModelRepository {
                 public void onResponse(Call<BooksListJSONModel> call, Response<BooksListJSONModel> response) {
                     numTotalBooks = response.body().getTotalItems();
 
-                    listViewModel.updateListContents(response.body().getItems(), startIdx);
+                    if (callback != null) {
+                        callback.onResult(response.body().getItems(), startIdx);
+                    }
 
                     requestCompleted = true;
                 }
 
                 @Override
                 public void onFailure(Call<BooksListJSONModel> call, Throwable t) {
-                    Log.e("TEST", t.toString());
+                    if (callback != null) {
+                        callback.onFail(t.toString());
+                    }
+
                     requestCompleted = true;
                 }
             });
+
+            requestStarted = true;
         }
+
+        return requestStarted;
     }
 
     private boolean canLoadMore(int startIdx) {
@@ -70,7 +81,9 @@ public class BookListRepository implements IModelRepository {
     }
 
     @Override
-    public void getBookDetails(String volumeId, final IBookDetailsCallback callback) {
+    public boolean getBookDetails(String volumeId, final IBookDetailsCallback callback) {
+        boolean requestStarted = true;
+
         booksAPIService.getBookDetails(volumeId).enqueue(new Callback<BookDetailsJSONModel>() {
             @Override
             public void onResponse(Call<BookDetailsJSONModel> call, Response<BookDetailsJSONModel> response) {
@@ -86,6 +99,8 @@ public class BookListRepository implements IModelRepository {
                 }
             }
         });
+
+        return requestStarted;
     }
 
     public int getNumTotalBooks() {

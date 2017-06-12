@@ -24,7 +24,12 @@ public class BookListItemViewModel {
 
     public void onClick(View v) {
         Intent detailsActivityIntent = new Intent(v.getContext(), BookDetailsActivity.class);
+
         detailsActivityIntent.putExtra(BookDetailsActivity.BOOK_VOLUME_ID_EXTRA, volumeId.get());
+        detailsActivityIntent.putExtra(BookDetailsActivity.BOOK_TITLE_EXTRA, title.get());
+        detailsActivityIntent.putExtra(BookDetailsActivity.BOOK_AUTHOR_EXTRA, author.get());
+        detailsActivityIntent.putExtra(BookDetailsActivity.BOOK_YEAR_EXTRA, year.get());
+        detailsActivityIntent.putExtra(BookDetailsActivity.BOOK_COVER_URL_EXTRA, coverURL.get());
 
         v.getContext().startActivity(detailsActivityIntent);
     }

@@ -2,9 +2,9 @@ package com.r3pi.booksexplorer;
 
 public interface IModelRepository {
 
-    public void getBooksList(String query, int startIdx, BooksListViewModel listViewModel);
+    public boolean getBooksList(String query, int startIdx, IBooksListCallback callback);
 
-    public void getBookDetails(String volumeId, IBookDetailsCallback callback);
+    public boolean getBookDetails(String volumeId, IBookDetailsCallback callback);
 
     public int getNumTotalBooks();
 

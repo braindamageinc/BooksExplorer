@@ -1,12 +1,13 @@
 package com.r3pi.booksexplorer;
 
 import android.arch.lifecycle.ViewModel;
+import android.databinding.ObservableBoolean;
 import android.support.v7.util.DiffUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BooksListViewModel extends ViewModel {
+public class BooksListViewModel extends ViewModel implements IBooksListCallback {
 
     private List<BookListItemViewModel> listContents = new ArrayList<>();
 
@@ -15,6 +16,9 @@ public class BooksListViewModel extends ViewModel {
     private String currentQuery;
     private int currentStartIdx;
     private final IModelRepository modelRepository;
+
+    public ObservableBoolean isEmptyList = new ObservableBoolean(true);
+    public ObservableBoolean isSearching = new ObservableBoolean(false);
 
     public BooksListViewModel(IModelRepository modelRepository) {
         this.modelRepository = modelRepository;
@@ -39,13 +43,31 @@ public class BooksListViewModel extends ViewModel {
     }
 
     private void getBooks(String query, int startIdx) {
-        modelRepository.getBooksList(query, startIdx, this);
+        boolean requestStarted = modelRepository.getBooksList(query, startIdx, this);
+
+        isSearching.set(requestStarted && startIdx <= 0);
+        isEmptyList.set(isEmptyList.get() && !isSearching.get());
     }
 
-    public void updateListContents(List<BooksListJSONModel.Item> items, int startIdx) {
+    private void updateAdapter(List<BookListItemViewModel> newList) {
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new BooksListDiffCallback(newList, listAdapter.getListContents()));
+        listAdapter.setListContents(newList);
+        diffResult.dispatchUpdatesTo(listAdapter);
+
+        isEmptyList.set(newList.isEmpty());
+    }
+
+    public String getCurrentQuery() {
+        return currentQuery;
+    }
+
+    @Override
+    public void onResult(List<BooksListJSONModel.Item> items, int startIdx) {
         BookListItemViewModelFactory listItemViewModelFactory = new BookListItemViewModelFactory();
 
         List<BookListItemViewModel> newList = new ArrayList<>(listContents);
+
+        isSearching.set(false);
 
         if (startIdx == 0) {
             newList.clear();
@@ -60,14 +82,9 @@ public class BooksListViewModel extends ViewModel {
         listContents = newList;
     }
 
-    private void updateAdapter(List<BookListItemViewModel> newList) {
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new BooksListDiffCallback(newList, listAdapter.getListContents()));
-        listAdapter.setListContents(newList);
-        diffResult.dispatchUpdatesTo(listAdapter);
-    }
-
-    public String getCurrentQuery() {
-        return currentQuery;
+    @Override
+    public void onFail(String error) {
+        //TODO: show error msg
     }
 
     private class BooksListDiffCallback extends DiffUtil.Callback {

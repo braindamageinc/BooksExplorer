@@ -7,5 +7,10 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    
+    <style name="ExpandedTitle" parent="AppTheme">
+        <item name="android:textColor">@android:color/transparent</item>
+        <!--<item name="android:textSize">1sp</item>-->
+    </style>
 
 </resources>

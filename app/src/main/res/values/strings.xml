@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BooksExplorer</string>
+
+    <string name="no_items">No items\nPlease search for a book</string>
 </resources>

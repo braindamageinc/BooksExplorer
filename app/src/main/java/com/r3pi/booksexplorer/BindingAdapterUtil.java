@@ -3,6 +3,7 @@ package com.r3pi.booksexplorer;
 import android.databinding.BindingAdapter;
 import android.os.Build;
 import android.text.Html;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +16,15 @@ public class BindingAdapterUtil {
         Picasso p =Picasso.with(imageView.getContext());
                 p.setIndicatorsEnabled(true);
                 p.load(url).into(imageView);
+    }
+
+    @BindingAdapter("android:visibility")
+    static public void setVisibilty(View view, boolean visible) {
+        if (visible) {
+            view.setVisibility(View.VISIBLE);
+        } else {
+            view.setVisibility(View.GONE);
+        }
     }
 
     @BindingAdapter("textHTML")

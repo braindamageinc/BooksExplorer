@@ -41,7 +41,7 @@ public class BookDetailsViewModel extends ViewModel {
             }
         }
 
-        String coverURL = null;
+        /*String coverURL = null;
         if (model.getVolumeInfo().getImageLinks() != null) {
             if (model.getVolumeInfo().getImageLinks().getLarge() != null) {
                 coverURL = model.getVolumeInfo().getImageLinks().getLarge();
@@ -52,16 +52,16 @@ public class BookDetailsViewModel extends ViewModel {
             } else if (model.getVolumeInfo().getImageLinks().getSmallThumbnail() != null) {
                 coverURL = model.getVolumeInfo().getImageLinks().getSmallThumbnail();
             }
-        }
+        }*/
 
         String year = model.getVolumeInfo().getPublishedDate();
         String description = model.getVolumeInfo().getDescription();
 
-        this.coverURL.set(coverURL);
-        this.title.set(title);
-        this.author.set(authors);
+        //this.coverURL.set(coverURL);
+        //this.title.set(title);
+        //this.author.set(authors);
         this.description.set(description);
-        this.year.set(year);
+        //this.year.set(year);
     }
 
 }

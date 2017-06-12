@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         this.listViewModel = ViewModelProviders.of(this, listViewModelFactory).get(BooksListViewModel.class);
         this.listViewModel.setAdapter((BooksListAdapter) listAdapter);
 
+        binding.setBooksList(listViewModel);
+
         this.listContentPager = new ListContentPager(binding.list, listViewModel);
     }
 
@@ -63,19 +65,13 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Log.i("TEST", "onQueryTextSubmit >>>>>>>> " + query);
-
                 listViewModel.searchBooks(query);
 
-                return true;
+                return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                Log.i("TEST", "onQueryTextChange === " + newText);
-
-                //TODO: trigger search as we type ?
-
                 return false;
             }
         });
