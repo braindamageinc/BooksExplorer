@@ -22,9 +22,10 @@
     android:onClick="@{book::onClick}">
 
     <ImageView
+        android:id="@+id/imageCover"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-
+        android:transitionName="coverImage"
         android:src="@{book.coverURL}"
         tools:src="@android:drawable/alert_light_frame"/>
 

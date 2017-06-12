@@ -76,7 +76,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        searchView.setQuery(listViewModel.getCurrentQuery(), true);
+        searchView.setQuery(listViewModel.getCurrentQuery(), false);
+        searchView.clearFocus();
     }
 
 }

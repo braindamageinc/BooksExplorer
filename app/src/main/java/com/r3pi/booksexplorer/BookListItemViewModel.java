@@ -1,7 +1,10 @@
 package com.r3pi.booksexplorer;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.ObservableField;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.view.View;
 
 public class BookListItemViewModel {
@@ -31,7 +34,11 @@ public class BookListItemViewModel {
         detailsActivityIntent.putExtra(BookDetailsActivity.BOOK_YEAR_EXTRA, year.get());
         detailsActivityIntent.putExtra(BookDetailsActivity.BOOK_COVER_URL_EXTRA, coverURL.get());
 
-        v.getContext().startActivity(detailsActivityIntent);
+        Context context = v.getContext();
+        View coverImage = v.findViewById(R.id.imageCover);
+
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context, coverImage, "coverImage");
+        context.startActivity(detailsActivityIntent, options.toBundle());
     }
 
 }
