@@ -2,6 +2,7 @@ package com.r3pi.booksexplorer.ui.BooksList;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -45,6 +46,12 @@ public class BooksListAdapter extends RecyclerView.Adapter<BooksListAdapter.View
 
     public void setListContents(List<BookListItemViewModel> listContent) {
         this.listContent = listContent;
+    }
+
+    public void update(List<BookListItemViewModel> newList) {
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new BooksListDiffCallback(newList, listContent));
+        setListContents(newList);
+        diffResult.dispatchUpdatesTo(this);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

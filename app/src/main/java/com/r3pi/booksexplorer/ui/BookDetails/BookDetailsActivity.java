@@ -37,10 +37,10 @@ public class BookDetailsActivity extends AppCompatActivity {
     }
 
     private void setBookDetailsFromIntent(Intent intent) {
-        bookDetailsViewModel.title.set(intent.getStringExtra(BOOK_TITLE_EXTRA));
-        bookDetailsViewModel.author.set(intent.getStringExtra(BOOK_AUTHOR_EXTRA));
-        bookDetailsViewModel.year.set(intent.getStringExtra(BOOK_YEAR_EXTRA));
-        bookDetailsViewModel.coverURL.set(intent.getStringExtra(BOOK_COVER_URL_EXTRA));
+        bookDetailsViewModel.updateBookDetails(intent.getStringExtra(BOOK_TITLE_EXTRA),
+                                                intent.getStringExtra(BOOK_AUTHOR_EXTRA),
+                                                intent.getStringExtra(BOOK_YEAR_EXTRA),
+                                                intent.getStringExtra(BOOK_COVER_URL_EXTRA));
     }
 
 

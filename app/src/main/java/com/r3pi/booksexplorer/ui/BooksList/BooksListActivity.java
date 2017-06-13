@@ -46,6 +46,7 @@ public class BooksListActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
 
+        this.listViewModel.setAdapter(null);
         this.listContentPager.cleanup();
     }
 

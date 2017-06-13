@@ -14,6 +14,6 @@ public class BookListViewModelFactory implements ViewModelProvider.Factory {
 
     @Override
     public BooksListViewModel create(Class modelClass) {
-        return new BooksListViewModel(modelRepository);
+        return new BooksListViewModel(modelRepository, new BookListItemViewModelFactory());
     }
 }

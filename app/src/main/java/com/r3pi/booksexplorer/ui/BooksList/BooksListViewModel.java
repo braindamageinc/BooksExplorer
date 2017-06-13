@@ -14,6 +14,7 @@ import java.util.List;
 public class BooksListViewModel extends ViewModel implements IBooksListCallback {
 
     private List<BookListItemViewModel> listContents = new ArrayList<>();
+    private final BookListItemViewModelFactory bookListItemViewModelFactory;
 
     private BooksListAdapter listAdapter;
 
@@ -24,8 +25,9 @@ public class BooksListViewModel extends ViewModel implements IBooksListCallback 
     public ObservableBoolean isEmptyList = new ObservableBoolean(true);
     public ObservableBoolean isSearching = new ObservableBoolean(false);
 
-    public BooksListViewModel(IModelRepository modelRepository) {
+    public BooksListViewModel(IModelRepository modelRepository, BookListItemViewModelFactory bookListItemViewModelFactory) {
         this.modelRepository = modelRepository;
+        this.bookListItemViewModelFactory = bookListItemViewModelFactory;
     }
 
     public void setAdapter(BooksListAdapter listAdapter) {
@@ -54,9 +56,9 @@ public class BooksListViewModel extends ViewModel implements IBooksListCallback 
     }
 
     private void updateAdapter(List<BookListItemViewModel> newList) {
-        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(new BooksListDiffCallback(newList, listAdapter.getListContents()));
-        listAdapter.setListContents(newList);
-        diffResult.dispatchUpdatesTo(listAdapter);
+        if (listAdapter != null) {
+            listAdapter.update(newList);
+        }
 
         isEmptyList.set(newList.isEmpty());
     }
@@ -67,8 +69,6 @@ public class BooksListViewModel extends ViewModel implements IBooksListCallback 
 
     @Override
     public void onResult(List<BooksListJSONModel.Item> items, int startIdx) {
-        BookListItemViewModelFactory listItemViewModelFactory = new BookListItemViewModelFactory();
-
         List<BookListItemViewModel> newList = new ArrayList<>(listContents);
 
         isSearching.set(false);
@@ -78,7 +78,7 @@ public class BooksListViewModel extends ViewModel implements IBooksListCallback 
         }
 
         for (BooksListJSONModel.Item item : items) {
-            newList.add(listItemViewModelFactory.getBookListItemViewModel(item));
+            newList.add(bookListItemViewModelFactory.getBookListItemViewModel(item));
         }
 
         updateAdapter(newList);
@@ -91,6 +91,8 @@ public class BooksListViewModel extends ViewModel implements IBooksListCallback 
         //TODO: show error msg
     }
 
-
+    public List<BookListItemViewModel> getListContents() {
+        return listContents;
+    }
 
 }

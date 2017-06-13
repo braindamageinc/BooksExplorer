@@ -36,36 +36,16 @@ public class BookDetailsViewModel extends ViewModel {
     }
 
     private void updateViewModel(BookDetailsJSONModel model) {
-        String title = model.getVolumeInfo().getTitle();
-        String authors = "";
-
-        if (model.getVolumeInfo().getAuthors() != null) {
-            for (String author : model.getVolumeInfo().getAuthors()) {
-                authors += author + ", ";
-            }
-        }
-
-        /*String coverURL = null;
-        if (model.getVolumeInfo().getImageLinks() != null) {
-            if (model.getVolumeInfo().getImageLinks().getLarge() != null) {
-                coverURL = model.getVolumeInfo().getImageLinks().getLarge();
-            } else if (model.getVolumeInfo().getImageLinks().getMedium() != null) {
-                coverURL = model.getVolumeInfo().getImageLinks().getMedium();
-            } else if (model.getVolumeInfo().getImageLinks().getThumbnail() != null) {
-                coverURL = model.getVolumeInfo().getImageLinks().getThumbnail();
-            } else if (model.getVolumeInfo().getImageLinks().getSmallThumbnail() != null) {
-                coverURL = model.getVolumeInfo().getImageLinks().getSmallThumbnail();
-            }
-        }*/
-
-        String year = model.getVolumeInfo().getPublishedDate();
+        // only get book description, the rest of the data is passed via intent
         String description = model.getVolumeInfo().getDescription();
-
-        //this.coverURL.set(coverURL);
-        //this.title.set(title);
-        //this.author.set(authors);
         this.description.set(description);
-        //this.year.set(year);
+    }
+
+    public void updateBookDetails(String title, String author, String year, String coverURL) {
+        this.title.set(title);
+        this.author.set(author);
+        this.year.set(year);
+        this.coverURL.set(coverURL);
     }
 
 }
